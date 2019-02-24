@@ -3,5 +3,9 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    Home
+    {% for section in sections %}
+    <div class="sections">
+        <a href="{{ section.id }}">{{ section.name }}</a>
+    </div>
+    {% endfor %}
 {% endblock %}
