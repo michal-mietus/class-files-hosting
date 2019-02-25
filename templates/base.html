@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{% block title %}{% endblock %} - Image Hosting</title>
+  <title>{% block title %}{% endblock %} - File Repository</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -33,7 +33,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Class files</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -42,7 +42,7 @@
         <ul class="navbar-nav ml-auto">
           {% if request.user.is_authenticated %}
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Sections</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'class_files:home' %}">Sections</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Logout</a>
@@ -61,11 +61,10 @@
   </nav>
 
   <!-- Header -->
-  <header class="masthead bg-primary text-white text-center">
+  <header class="masthead bg-primary text-white text-center pb-3">
     <div class="container">
-      <h1 class="text-uppercase mb-0">Home Image Hosting</h1>
+      <h1 class="text-uppercase mb-0">Class Files Repository</h1>
       <hr class="star-light">
-      <h2 class="font-weight-light mb-0">Web Developer - Graphic Artist - User Experience Designer</h2>
     </div>
   </header>
 
