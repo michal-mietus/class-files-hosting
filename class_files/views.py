@@ -36,7 +36,11 @@ class UploadFile(FormView):
     form_class = FileUploadForm
     template_name = 'class_files/upload_file.html'
     success_url = reverse_lazy('class_files:home')
- 
+
+  
+
+    def get_dropbox_section_folder_path(self):
+        return self.dropbox_folder_name + str(self.get_section()).lower() + '/' 
 
     def get_section(self):
         return Section.objects.get(pk=self.kwargs['pk'])
