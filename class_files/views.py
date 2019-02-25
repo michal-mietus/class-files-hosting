@@ -1,7 +1,8 @@
 import os
 from datetime import datetime
-from django.views.generic import DetailView, ListView, FormView
+from django.views.generic import DetailView, ListView, FormView, TemplateView
 from django.urls import reverse_lazy
+from django.http import Http404
 from .models import Section, File
 from .forms import FileUploadForm
 from .api_token import TOKEN
@@ -12,24 +13,49 @@ class HomeView(ListView):
     model = Section
     template_name = 'class_files/home.html'
     context_object_name = 'sections'
+    icon_path = 'static/icons/sections/'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         for section in context['sections']:
-            section.icon_path = 'static/icons/' + section.icon_name
+            section.icon_path = self.icon_path + section.icon_name
         return context
 
 
-class SectionView(DetailView):
+class SectionView(TemplateView):
+    template_name = 'section.html'
+
+
+class SectionFilesView(DetailView):
+    """
+        Section in url have file type argument, on which depends which 
+        files will be server.
+    """
     model = Section
     context_object_name = 'section'
+    template_name = 'class_files/section_files.html'
+    allowed_file_types = ['images', 'docs']
+
+    def dispatch(self, request, *args, **kwargs):
+        if kwargs['type'] not in self.allowed_file_types:
+            raise Http404
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         section = Section.objects.get(pk=self.kwargs['pk'])
-        context['files'] = section.get_all_files()
+        context['files'] = section.get_files_typeof(self.kwargs['type'])
+        dbx = self.dropbox_connection()
+        for f in context['files']:
+            f.link = self.get_file_link(dbx, f)
         return context
 
+    def dropbox_connection(self):
+        return dropbox.Dropbox(TOKEN)
+
+    def get_file_link(self, dropbox_connection, file):
+        return dropbox_connection.files_get_temporary_link(file.dropbox_path).link
+        
 
 class UploadFile(FormView):
     dropbox_folder_name = '/class-files/'
@@ -50,7 +76,7 @@ class UploadFile(FormView):
                 dropbox_path=file_path,
                 extension=self.get_file_extension(f),
                 section=self.get_section(),
-                date=datetime.now()
+                upload_date=datetime.now()
             )
         return super().form_valid(form)
 
