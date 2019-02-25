@@ -17,4 +17,4 @@ class File(models.Model):
     dropbox_path = models.URLField()
     extension = models.CharField(max_length=100)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    creation_date = models.DateField()
+    upload_date = models.DateField()
