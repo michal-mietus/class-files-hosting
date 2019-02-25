@@ -30,3 +30,13 @@ class SectionView(DetailView):
         context['files'] = section.get_all_files()
         return context
 
+
+class UploadFile(FormView):
+    dropbox_folder_name = '/class-files/'
+    form_class = FileUploadForm
+    template_name = 'class_files/upload_file.html'
+    success_url = reverse_lazy('class_files:home')
+ 
+
+    def get_section(self):
+        return Section.objects.get(pk=self.kwargs['pk'])
