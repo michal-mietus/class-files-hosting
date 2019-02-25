@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    {% for section in sections %}
-    <div class="sections">
-        <a href="{{ section.id }}">{{ section.name }}</a>
+<!-- Portfolio Grid Section -->
+<section class="portfolio pt-5" id="portfolio">
+    <div class="container">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Sections</h2>
+        <hr class="star-dark mb-5">
+        <div class="row">
+            {% for section in sections %}
+                <div class="col-md-6 col-lg-4">
+                    <h4 class="text-center text-uppercase text-secondary mb-3">{{ section.name }}</h2>
+                    <a class="portfolio-item d-block mx-auto" href="{% url 'class_files:section' section.id %}">
+                    <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                        <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                        <i class="fas fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img class="img-fluid" src="{{ section.icon_path }}" alt="">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    {% endfor %}
+</section>
+    
 {% endblock %}
