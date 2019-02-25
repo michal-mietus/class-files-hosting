@@ -18,3 +18,6 @@ class File(models.Model):
     extension = models.CharField(max_length=100)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     upload_date = models.DateField()
+
+    def __str__(self):
+        return self.name
