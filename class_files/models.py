@@ -13,6 +13,7 @@ class Section(models.Model):
 
     def get_files_typeof(self, file_type):
         # TODO I dont know is this place good for that logic
+        # TODO think about it how to scale up extensions.
         if file_type == 'images':
             extensions = ['.jpeg', '.jpg', '.png', '.gif']
         elif file_type == 'docs':
