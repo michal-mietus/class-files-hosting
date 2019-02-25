@@ -37,6 +37,22 @@ class UploadFile(FormView):
     template_name = 'class_files/upload_file.html'
     success_url = reverse_lazy('class_files:home')
 
+    def form_valid(self, form):
+        dbx = self.dropbox_connection()
+        files = self.request.FILES.getlist('file_field')
+        for f in files:
+            filename = self.create_file_name(f)
+            file_path = self.create_dropbox_file_path(f)
+
+            file_metadata = dbx.files_upload(f.file.read(), file_path)
+            File.objects.create(
+                name=filename,
+                dropbox_path=file_path,
+                extension=self.get_file_extension(f),
+                section=self.get_section(),
+                date=datetime.now()
+            )
+        return super().form_valid(form)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
