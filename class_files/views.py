@@ -38,6 +38,12 @@ class UploadFile(FormView):
     success_url = reverse_lazy('class_files:home')
 
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
+
+    def dropbox_connection(self):
         return dropbox.Dropbox(TOKEN)
 
     def create_file_name(self, file):
