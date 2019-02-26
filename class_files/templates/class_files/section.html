@@ -1,4 +1,23 @@
-<!--
-    /images
-    /docs
--->
+{% extends 'base.html' %}
+
+{% block title %}{{ section.name }}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+        {% if not file_types %}
+            <div class="my-5 mx-auto">
+                <h4>There aren't files</h4>
+            </div>
+        {% endif %}
+        {% for file_type in file_types %}
+            <div class="p-3">
+                <div class="col-sm-10 col-md-6 col-lg-4 mx-auto my-5 text-center">
+                    <h4><a href="{% url 'class_files:section_files' pk file_type %}" class="text-uppercase text-secondary">{{ file_type }}</a></h4>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}
