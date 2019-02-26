@@ -23,7 +23,7 @@ class HomeView(ListView):
 
 
 class SectionView(TemplateView):
-    template_name = 'section.html'
+    template_name = 'class_files/section.html'
     allowed_file_types = ['images', 'docs']  # TODO shared the same in SectionFilesView!
     
     def get_context_data(self, *args, **kwargs):
@@ -88,7 +88,6 @@ class UploadFile(FormView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['pk'] = self.kwargs['pk']
         return context
 
     def dropbox_connection(self):
