@@ -44,6 +44,30 @@ class LoginView(FormView):
         })
 
 
+class RegisterView(FormView):
+    form_class = RegisterForm
+    template_name = 'class_files/register.html'
+    success_url = reverse_lazy('class_files:home')
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password1 = form.cleaned_data['password1']
+        password2 = form.cleaned_data['password2']
+
+        error = ''
+        if password1 != password2:
+            error = 'Passwords must be the same!'
+        else:
+            print(password1)
+            user = User.objects.create(username=username, password=password1)
+            login(self.request, user)
+            return super().form_valid(form)
+
+        print(error)
+        return render(self.request, self.template_name, {
+            'form': form,
+            'error': error,
+        })
 
 
 class SectionView(TemplateView):
