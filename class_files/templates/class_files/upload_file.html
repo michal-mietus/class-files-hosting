@@ -13,6 +13,7 @@
         <div class="col-lg-8 mx-auto">
           <form  method="POST" action="{% url 'class_files:upload_file' view.kwargs.pk %}" enctype="multipart/form-data" name="uploadFile" id="uploadFile">
             {% csrf_token %}
+            {{ form.non_field_errors }}
             {% for field in form %}
               <div class="control-group">
                   <div class="form-group floating-label-form-group controls mb-0 pb-2">
