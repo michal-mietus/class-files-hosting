@@ -395,3 +395,7 @@ a:focus, a:hover, a:active {
 .break-word {
   word-wrap: break-word;
 }
+
+.error {
+  color:red;
+}
