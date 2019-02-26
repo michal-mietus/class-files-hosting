@@ -11,7 +11,7 @@
       <hr class="star-dark mb-5">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <form  method="POST" action="{% url 'class_files:upload_file' pk %}" enctype="multipart/form-data" name="uploadFile" id="uploadFile">
+          <form  method="POST" action="{% url 'class_files:upload_file' view.kwargs.pk %}" enctype="multipart/form-data" name="uploadFile" id="uploadFile">
             {% csrf_token %}
             {% for field in form %}
               <div class="control-group">
