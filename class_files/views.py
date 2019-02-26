@@ -23,7 +23,13 @@ class HomeView(ListView):
 
 
 class SectionView(TemplateView):
-    template_name = 'section.html'
+    template_name = 'class_files/section.html'
+    allowed_file_types = ['images', 'docs']  # TODO shared the same in SectionFilesView!
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['file_types'] = self.allowed_file_types
+        return context
 
 
 class SectionFilesView(DetailView):
@@ -34,7 +40,7 @@ class SectionFilesView(DetailView):
     model = Section
     context_object_name = 'section'
     template_name = 'class_files/section_files.html'
-    allowed_file_types = ['images', 'docs']
+    allowed_file_types = ['images', 'docs']  # the same as in the SectionView
 
     def dispatch(self, request, *args, **kwargs):
         if kwargs['type'] not in self.allowed_file_types:
@@ -82,7 +88,6 @@ class UploadFile(FormView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['pk'] = self.kwargs['pk']
         return context
 
     def dropbox_connection(self):
