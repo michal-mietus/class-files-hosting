@@ -28,6 +28,7 @@ class SectionView(TemplateView):
     
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context['section'] = Section.objects.get(pk=self.kwargs['pk'])
         context['file_types'] = self.allowed_file_types
         return context
 
