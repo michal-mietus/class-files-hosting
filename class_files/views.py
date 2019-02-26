@@ -1,10 +1,14 @@
 import os
 from datetime import datetime
 from django.views.generic import DetailView, ListView, FormView, TemplateView
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.http import Http404
+from django.shortcuts import render
 from .models import Section, File
-from .forms import FileUploadForm
+from .forms import FileUploadForm, LoginForm, RegisterForm
 from .api_token import TOKEN
 import dropbox
 
@@ -20,6 +24,26 @@ class HomeView(ListView):
         for section in context['sections']:
             section.icon_path = self.icon_path + section.icon_name
         return context
+
+
+class LoginView(FormView):
+    form_class = LoginForm
+    template_name = 'class_files/login.html'
+    success_url = reverse_lazy('class_files:home')
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(self.request, username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+            return super().form_valid(form)
+        return render(self.request, self.template_name, {
+            'form': form,
+            'error': 'Username or password is wrong. Try again.',
+        })
+
+
 
 
 class SectionView(TemplateView):
@@ -53,8 +77,16 @@ class SectionFilesView(DetailView):
         section = Section.objects.get(pk=self.kwargs['pk'])
         context['files'] = section.get_files_typeof(self.kwargs['type'])
         dbx = self.dropbox_connection()
+        context = self.get_link_or_delete_from_context(dbx, context)
+        return context
+
+    def get_dbx_link_or_delete_from_context(self, connection, context):
+        """ If file from db cant be find in hosting, is deleting from context """
         for f in context['files']:
-            f.link = self.get_file_link(dbx, f)
+            try:
+                f.link = self.get_file_link(dbx, f)
+            except Exception as e:
+                context['files'].filter(pk=f.pk).delete()
         return context
 
     def dropbox_connection(self):
