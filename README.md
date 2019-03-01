@@ -1,2 +1,2 @@
-# class-files-site
+# class-files-hosting
 Website files hosting for students.
