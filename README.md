@@ -24,6 +24,9 @@ $ git clone https://github.com/michal-mietus/class-files-hosting.git
 $ cd class-files-hosting/
 ```
 
-Create PostgreSQL database.__
-Change DATABASES variable in `class_files_site/settings.py file`.__
-In app folder `class_files` create file `api_token` with `SECRET_KEY` variable.__
+Create PostgreSQL database.
+
+Change DATABASES variable in `class_files_site/settings.py file`.
+
+In app folder `class_files` create file `api_token` with `SECRET_KEY` variable.
+
