@@ -3,10 +3,13 @@ from datetime import datetime
 from django.views.generic import DetailView, ListView, FormView, TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.http import Http404
 from django.shortcuts import render
+from .decorators import prevent_logged
 from .models import Section, File
 from .forms import FileUploadForm, LoginForm, RegisterForm
 from .api_token import TOKEN
@@ -26,6 +29,7 @@ class HomeView(ListView):
         return context
 
 
+@method_decorator(prevent_logged, name='dispatch')
 class LoginView(FormView):
     form_class = LoginForm
     template_name = 'class_files/login.html'
@@ -44,6 +48,7 @@ class LoginView(FormView):
         })
 
 
+@method_decorator(prevent_logged, name='dispatch')
 class RegisterView(FormView):
     form_class = RegisterForm
     template_name = 'class_files/register.html'
@@ -101,7 +106,7 @@ class SectionFilesView(DetailView):
         section = Section.objects.get(pk=self.kwargs['pk'])
         context['files'] = section.get_files_typeof(self.kwargs['type'])
         dbx = self.dropbox_connection()
-        context = self.get_link_or_delete_from_context(dbx, context)
+        context = self.get_dbx_link_or_delete_from_context(dbx, context)
         return context
 
     def get_dbx_link_or_delete_from_context(self, connection, context):
@@ -120,6 +125,7 @@ class SectionFilesView(DetailView):
         return dropbox_connection.files_get_temporary_link(file.dropbox_path).link
         
 
+@method_decorator(login_required, name='dispatch')
 class UploadFile(FormView):
     dropbox_folder_name = '/class-files/'
     form_class = FileUploadForm

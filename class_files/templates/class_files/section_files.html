@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ section.name }} {{ section.type }}{% endblock %}
+{% block title %}{{ section.name }} {{ view.kwargs.type }}{% endblock %}
 
 {% block navbar %}
 <li class="nav-item mx-0 mx-lg-1">
