@@ -31,3 +31,5 @@ Change DATABASES variable in `class_files_site/settings.py file`.
 You have also to create [dropbox account](https://www.dropbox.com/).
 
 Then in Dropbox create app and put inside `class_files/api_token.py`variable `TOKEN` with your app Token as string.
+
+Now you can run your hosting application.
