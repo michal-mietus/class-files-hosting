@@ -30,3 +30,4 @@ Change DATABASES variable in `class_files_site/settings.py file`.
 
 In app folder `class_files` create file `api_token` with `SECRET_KEY` variable.
 
+You have also to create [dropbox account](https://www.dropbox.com/)
