@@ -101,7 +101,7 @@ class SectionFilesView(DetailView):
         section = Section.objects.get(pk=self.kwargs['pk'])
         context['files'] = section.get_files_typeof(self.kwargs['type'])
         dbx = self.dropbox_connection()
-        context = self.get_link_or_delete_from_context(dbx, context)
+        context = self.get_dbx_link_or_delete_from_context(dbx, context)
         return context
 
     def get_dbx_link_or_delete_from_context(self, connection, context):
