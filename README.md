@@ -28,5 +28,6 @@ Create PostgreSQL database.
 
 Change DATABASES variable in `class_files_site/settings.py file`.
 
-You have also to create [dropbox account](https://www.dropbox.com/)
-Then in Dropbox create app and put inside app folder `class_files` in file `api_token` variable `TOKEN` with your app Token as string.
+You have also to create [dropbox account](https://www.dropbox.com/).
+
+Then in Dropbox create app and put inside `class_files/api_token.py`variable `TOKEN` with your app Token as string.
