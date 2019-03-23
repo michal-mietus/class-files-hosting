@@ -4,7 +4,9 @@ Website files hosting for students.
 [Page Link](http://iel4.herokuapp.com/)
 
 ## Introduce
-Class files hosting is web application, which allows students to store their files from lessons as images or documents like pdf files.
+This project was created to store all necessary files for school lessons.
+This application is connected with Dropbox API and allow users to store there their files. 
+Also it groups them depending on file type, for example images or pdf files.
 
 ### Features
 * user login and registration system
