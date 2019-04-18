@@ -113,7 +113,7 @@ class SectionFilesView(DetailView):
         """ If file from db cant be find in hosting, is deleting from context """
         for f in context['files']:
             try:
-                f.link = self.get_file_link(dbx, f)
+                f.link = self.get_file_link(connection, f)
             except Exception as e:
                 context['files'].filter(pk=f.pk).delete()
         return context
@@ -162,7 +162,7 @@ class UploadFile(FormView):
                 basename + '_' + date(spaces replaced with underscores) + file_extension
         """
         basename, extension = os.path.splitext(str(file))
-        filename = basename + '_' + self.get_formatted_date() + extension
+        filename = basename + '_' + self.get_formatted_date()
         return filename
 
     def get_file_extension(self, file):

@@ -12,20 +12,18 @@
 {% block content %}
     <div class="container">
         <!-- TODO row contains all elements, do new new for every 3rd element -->
-        <div class="row">
+        <div class="row" style="justify-content: space-between;">
         {% if not files %}
-            <div class="my-5 mx-auto">
+            <div class="file my-5 mx-auto">
                 <h4>There are no files</h4>
             </div>
         {% endif %}
         {% for file in files %}
-            <div class="max-width-100">
-                {% if view.kwargs.type == 'images' %}
-                <div class="col-sm-10 col-md-6 col-lg-4 mt-5 mx-auto">
-                    <img src="{{ file.link }}" class="responsive-img img-fluid mx-auto center-block">
-                </div>
-                {% endif %}
-                <div class="col-sm-10 col-md-6 col-lg-4 mx-auto text-center">
+            <div class="file col-sm-10 col-md-5 col-lg-3 offset-lg-1 my-5">
+                <div>
+                    {% if view.kwargs.type == 'images' %}
+                        <img src="{{ file.link }}" class="responsive-img img-fluid">
+                    {% endif %}
                     <a href="{{ file.link }}"><h4 class="text-secondary break-word">{{ file.name }}</h4></a>
                 </div>
             </div>

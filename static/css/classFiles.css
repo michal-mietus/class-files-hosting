@@ -399,3 +399,7 @@ a:focus, a:hover, a:active {
 .error {
   color:red;
 }
+.file {
+  background-color: #B4C6FF;
+  box-shadow:0px 6px 8px -1px rgba(0,0,0,0.54);
+}
