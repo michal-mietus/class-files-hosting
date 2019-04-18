@@ -19,7 +19,7 @@
             </div>
         {% endif %}
         {% for file in files %}
-            <div class="file col-sm-10 col-md-5 col-lg-3 offset-lg-1 my-5">
+            <div class="file col-sm-10 col-md-5 col-lg-3 offset-lg-1 my-5 pt-3">
                 <div>
                     {% if view.kwargs.type == 'images' %}
                         <img src="{{ file.link }}" class="responsive-img img-fluid">
