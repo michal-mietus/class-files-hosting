@@ -2,3 +2,6 @@ __pycache__*
 *.sqlite3
 class_files/api_token.py
 .requirements.txt.swp
+venv/
+latest.dump
+db.sqlite
