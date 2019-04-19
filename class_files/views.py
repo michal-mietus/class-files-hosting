@@ -42,6 +42,7 @@ class LoginView(FormView):
         if user is not None:
             login(self.request, user)
             return super().form_valid(form)
+
         return render(self.request, self.template_name, {
             'form': form,
             'error': 'Username or password is wrong. Try again.',
@@ -63,12 +64,10 @@ class RegisterView(FormView):
         if password1 != password2:
             error = 'Passwords must be the same!'
         else:
-            print(password1)
             user = User.objects.create(username=username, password=password1)
             login(self.request, user)
             return super().form_valid(form)
 
-        print(error)
         return render(self.request, self.template_name, {
             'form': form,
             'error': error,
@@ -77,7 +76,7 @@ class RegisterView(FormView):
 
 class SectionView(TemplateView):
     template_name = 'class_files/section.html'
-    allowed_file_types = ['images', 'docs']  # TODO shared the same in SectionFilesView!
+    allowed_file_types = ['images', 'docs']
     
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -94,7 +93,7 @@ class SectionFilesView(DetailView):
     model = Section
     context_object_name = 'section'
     template_name = 'class_files/section_files.html'
-    allowed_file_types = ['images', 'docs']  # the same as in the SectionView
+    allowed_file_types = ['images', 'docs']
 
     def dispatch(self, request, *args, **kwargs):
         if kwargs['type'] not in self.allowed_file_types:
