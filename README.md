@@ -3,10 +3,10 @@ Website files hosting for students.
 
 [Page Link](http://iel4.herokuapp.com/)
 
-## Introduce
-This project was created to store all necessary files for school lessons.
+## About
+This project was created to store all necessary files for school lessons. 
 Application is connected to Dropbox API and allow users to store there their files. 
-Also it groups them depending on file type, for example images or pdf files.
+Also it groups them into sections and on file type, for example images or pdf files.
 
 ### Features
 * user login and registration system
