@@ -5,7 +5,7 @@ Website files hosting for students.
 
 ## Introduce
 This project was created to store all necessary files for school lessons.
-Application is connected with Dropbox API and allow users to store there their files. 
+Application is connected to Dropbox API and allow users to store there their files. 
 Also it groups them depending on file type, for example images or pdf files.
 
 ### Features
