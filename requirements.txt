@@ -1,6 +1,6 @@
 certifi==2018.11.29
 chardet==3.0.4
-Django==2.1.7
+Django==2.1.11
 dropbox==9.3.0
 gunicorn==19.9.0
 idna==2.8
